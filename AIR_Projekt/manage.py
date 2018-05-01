@@ -2,6 +2,10 @@
 import os
 import sys
 
+from pyspark import SparkConf, SparkContext, SQLContext
+
+
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "AIR_Projekt.settings")
     try:
@@ -19,4 +23,5 @@ if __name__ == "__main__":
                 "forget to activate a virtual environment?"
             )
         raise
+
     execute_from_command_line(sys.argv)
