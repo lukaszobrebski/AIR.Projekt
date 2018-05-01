@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'polls'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,10 @@ DATABASES = {
         'USER': 'calendarAdmin',
         'PASSWORD': 'calendar',
         'HOST': "mycalendar.ced9ulie4nvg.eu-central-1.rds.amazonaws.com",
-        'PORT': '3306'
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
     }
 }
 
