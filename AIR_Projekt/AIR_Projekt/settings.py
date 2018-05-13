@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'AIR_Projekt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'myCalendar',
+        'USER': 'calendarAdmin',
+        'PASSWORD': 'calendar',
+        'HOST': "mycalendar.ced9ulie4nvg.eu-central-1.rds.amazonaws.com",
+        'PORT': '3306'
     }
 }
 

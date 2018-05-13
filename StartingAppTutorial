@@ -1,0 +1,12 @@
+1. Najpierw nalezy pobrac NodeJS z ich strony: https://nodejs.org/en/
+2. Kolejnym krokiem jest instalacja react-app poprzez komende: npm install -g create-react-app
+	2a. npm to package manager dla NodeJSa
+3. Poniewaz apka wazy dosc sporo (za duzo jak dla GitHuba) musialem usunac folder node_modules, wiec aby apka dzialala poprawnie nalezy jeszcze raz utworzyc tym razem u siebie projekt react-app
+4. ...przechodzimy do wybranego folderu i tworzymy aplikacje (sama utworzy folder) komenda: create-react-app <nazwa nowego folderu>
+5. Apka korzysta z kilku elementów, które równierz trzeba pobrac przez nodeJS
+	5a. Material UI bo chcemy zeby apka wygladala jak do ludzi plus korzystamy tu z gotowych komponentów takich jak np. Progress Bar
+	5b. axios ma sluzyc do wysylania requestów do backendu
+	5c. tap-event-plugin 
+6. Jak juz macie wszystko poinstalowane od strony NodeJS to w nowo utworzonym projekcie/folderze podmieniacie App.js i wrzucacie: Login.js, Register.js i Loginscreen.js
+7. Na koniec przechodzimy do glównego folderu projektu i komenda npm start uruchamiamy node, 
+   domyslnie na porcie 3000 wiec zeby zobaczyc aplikacje, trzeba wejsc w loclhost:3000
