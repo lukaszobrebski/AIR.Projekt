@@ -7,6 +7,50 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+class pwr_User(models.Model):
+	class Meta:
+		managed = False
+		db_table = 'USER'
+		
+	user_id = models.IntegerField(primary_key=True)
+	user_name = models.CharField(max_length=45)
+	user_password = models.CharField(max_length=15)
+	
+class pwr_Note(models.Model):
+	class Meta:
+		managed = False
+		db_table = 'NOTES'
+		
+	title = models.CharField(max_length=45, primary_key=True)
+	user_id = models.ForeignKey('pwr_User', models.DO_NOTHING) 
+	event_id = models.ForeignKey('pwr_Task', models.DO_NOTHING)# Doprecyzowac: Co to i czy to klucz obcy
+	cret_dt_tm = models.DateTimeField(null=True)
+	note_txt = models.CharField(max_length=999999999) # Doprecyzowac: max długosc
+	priority = models.IntegerField()
+	
+class pwr_Task(models.Model):
+	class Meta:
+		managed = False
+		db_table = 'Task'
+	
+	task_id = models.Integer(primary_key=True)
+	query = models.CharField(max_length=21840)
+	occurrence_num = models.Integer()
+	status = models.CharField(max_length=20)
+	start_time = models.DateTimeField(null=True)
+	end_time = models.DateTimeField(null=True)
+	user_id = models.ForeignKey('pwr_User', models.DO_NOTHING)# Doprecyzowac czy to klucz obcy
+	note_title = models.ForeignKey('pwr_Note', models.DO_NOTHING)# Doprecyzowac: czy to klucz obcy
+	
+class pwr_TaskHistory(models.Model):
+	class Meta:
+		managed = False
+		db_table = 'Task_hist'
+		
+	task_id = models.IntegerField()
+	query_time = models.CharField(max_length=655...)
+	
+	
 
 class Event(models.Model):
     event_id = models.IntegerField(primary_key=True)

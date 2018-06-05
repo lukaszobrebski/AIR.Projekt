@@ -7,14 +7,15 @@ from django.shortcuts import render
 from AIR_Projekt.workflow import generatRDDs
 from polls.helpers import LazyEncoder
 from polls.models import Dupa, Notes
+"""
+  path('', views.index, name='index'),
+    path('login', views.LoginUserAPI.as_view()),
+    path('register', views.RegisterUserAPI.as_view()),
+    path('tasks', views.TasksAPI.as_view()),
+    path('history', views.HistoryAPI.as_view()),
+    path('notes', views.NotesAPI.as_view())
+"""
 
-
-def index(request):
-    dupas_list = Dupa.objects.all()
-    jObject = serialize('json', dupas_list, cls=LazyEncoder)
-    return HttpResponse(generatRDDs())
-
-
-def login(request):
-    return HttpResponse("Login Form")
-
+class LoginUserAPI(APIView):
+	pass
+	
