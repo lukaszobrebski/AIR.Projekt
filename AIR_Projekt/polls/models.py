@@ -7,7 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-class pwr_User(models.Model):
+class User(models.Model):
 	class Meta:
 		managed = False
 		db_table = 'USER'
@@ -16,7 +16,7 @@ class pwr_User(models.Model):
 	user_name = models.CharField(max_length=45)
 	user_password = models.CharField(max_length=15)
 	
-class pwr_Note(models.Model):
+class Note(models.Model):
 	class Meta:
 		managed = False
 		db_table = 'NOTES'
@@ -28,7 +28,7 @@ class pwr_Note(models.Model):
 	note_txt = models.CharField(max_length=999999999) # Doprecyzowac: max długosc
 	priority = models.IntegerField()
 	
-class pwr_Task(models.Model):
+class Task(models.Model):
 	class Meta:
 		managed = False
 		db_table = 'Task'
@@ -42,7 +42,7 @@ class pwr_Task(models.Model):
 	user_id = models.ForeignKey('pwr_User', models.DO_NOTHING)# Doprecyzowac czy to klucz obcy
 	note_title = models.ForeignKey('pwr_Note', models.DO_NOTHING)# Doprecyzowac: czy to klucz obcy
 	
-class pwr_TaskHistory(models.Model):
+class TaskHistory(models.Model):
 	class Meta:
 		managed = False
 		db_table = 'Task_hist'
@@ -51,60 +51,6 @@ class pwr_TaskHistory(models.Model):
 	query_time = models.CharField(max_length=655...)
 	
 	
-
-class Event(models.Model):
-    event_id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    title = models.CharField(max_length=20)
-    description = models.CharField(max_length=255, blank=True, null=True)
-    start_dt_tm = models.DateTimeField(blank=True, null=True)
-    end_dt_tm = models.DateTimeField(blank=True, null=True)
-    note = models.TextField(blank=True, null=True)
-    is_done = models.IntegerField(blank=True, null=True)
-    priority = models.CharField(max_length=20, blank=True, null=True)
-    cyklicity = models.CharField(max_length=20, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'EVENT'
-
-
-class Notes(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    cret_dt_tm = models.DateTimeField(primary_key=True)
-    mod_dt_tm = models.DateTimeField(blank=True, null=True)
-    title = models.CharField(max_length=45)
-    note_txt = models.TextField(blank=True, null=True)
-    priority = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'NOTES'
-        unique_together = (('cret_dt_tm', 'title', 'user'),)
-
-
-class Session(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
-    login_dt_tm = models.DateTimeField()
-    logout_dt_tm = models.DateTimeField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'SESSION'
-        unique_together = (('user', 'login_dt_tm'),)
-
-
-class User(models.Model):
-    user_id = models.IntegerField(primary_key=True)
-    email = models.CharField(max_length=45, blank=True, null=True)
-    user_name = models.CharField(max_length=45)
-    pass_field = models.CharField(db_column='pass', max_length=20, blank=True, null=True)  # Field renamed because it was a Python reserved word.
-    reg_dt = models.DateField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'USER'
-
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=80)
@@ -214,13 +160,3 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-
-class Dupa(models.Model):
-    id_dupa = models.AutoField(primary_key=True)
-    login = models.CharField(max_length=45)
-    password = models.CharField(max_length=45)
-
-    class Meta:
-        managed = False
-        db_table = 'dupa'
