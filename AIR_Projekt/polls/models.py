@@ -22,8 +22,8 @@ class Note(models.Model):
 		db_table = 'NOTES'
 		
 	title = models.CharField(max_length=45, primary_key=True)
-	user_id = models.ForeignKey('pwr_User', models.DO_NOTHING) 
-	event_id = models.ForeignKey('pwr_Task', models.DO_NOTHING)# Doprecyzowac: Co to i czy to klucz obcy
+	user_id = models.ForeignKey('User', models.DO_NOTHING) 
+	event_id = models.ForeignKey('Task', models.DO_NOTHING)# Doprecyzowac: Co to i czy to klucz obcy
 	cret_dt_tm = models.DateTimeField(null=True)
 	note_txt = models.CharField(max_length=999999999) # Doprecyzowac: max długosc
 	priority = models.IntegerField()
@@ -39,8 +39,8 @@ class Task(models.Model):
 	status = models.CharField(max_length=20)
 	start_time = models.DateTimeField(null=True)
 	end_time = models.DateTimeField(null=True)
-	user_id = models.ForeignKey('pwr_User', models.DO_NOTHING)# Doprecyzowac czy to klucz obcy
-	note_title = models.ForeignKey('pwr_Note', models.DO_NOTHING)# Doprecyzowac: czy to klucz obcy
+	user_id = models.ForeignKey('User', models.DO_NOTHING)# Doprecyzowac czy to klucz obcy
+	note_title = models.ForeignKey('Note', models.DO_NOTHING)# Doprecyzowac: czy to klucz obcy
 	
 class TaskHistory(models.Model):
 	class Meta:
@@ -48,8 +48,8 @@ class TaskHistory(models.Model):
 		db_table = 'Task_hist'
 		
 	task_id = models.IntegerField()
-	query_time = models.CharField(max_length=655...)
-	
+	query_time = models.TimeField()
+	json_result = models.CharField(max_length=655)# Doprecyzowac wielkosc
 	
 
 class AuthGroup(models.Model):
