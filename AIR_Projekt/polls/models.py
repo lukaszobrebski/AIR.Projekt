@@ -8,48 +8,48 @@
 from django.db import models
 
 class User(models.Model):
-	class Meta:
-		managed = False
-		db_table = 'USER'
+   class Meta:
+      managed = False
+      db_table = 'USER'
 		
-	user_id = models.IntegerField(primary_key=True)
-	user_name = models.CharField(max_length=45)
-	user_password = models.CharField(max_length=15)
+   user_id = models.IntegerField(primary_key=True)
+   user_name = models.CharField(max_length=45)
+   user_password = models.CharField(max_length=15)
 	
 class Note(models.Model):
-	class Meta:
-		managed = False
-		db_table = 'NOTES'
+   class Meta:
+      managed = False
+      db_table = 'NOTES'
 		
-	title = models.CharField(max_length=45, primary_key=True)
-	user_id = models.ForeignKey('User', models.DO_NOTHING) 
-	event_id = models.ForeignKey('Task', models.DO_NOTHING)# Doprecyzowac: Co to i czy to klucz obcy
-	cret_dt_tm = models.DateTimeField(null=True)
-	note_txt = models.CharField(max_length=999999999) # Doprecyzowac: max długosc
-	priority = models.IntegerField()
+   title = models.CharField(max_length=45, primary_key=True)
+   user_id = models.ForeignKey('User', models.DO_NOTHING) 
+   event_id = models.ForeignKey('Task', models.DO_NOTHING)# Doprecyzowac: Co to i czy to klucz obcy
+   cret_dt_tm = models.DateTimeField(null=True)
+   note_txt = models.CharField(max_length=999999999) # Doprecyzowac: max długosc
+   priority = models.IntegerField()
 	
 class Task(models.Model):
-	class Meta:
-		managed = False
-		db_table = 'Task'
+   class Meta:
+      managed = False
+      db_table = 'Task'
 	
-	task_id = models.Integer(primary_key=True)
-	query = models.CharField(max_length=21840)
-	occurrence_num = models.Integer()
-	status = models.CharField(max_length=20)
-	start_time = models.DateTimeField(null=True)
-	end_time = models.DateTimeField(null=True)
-	user_id = models.ForeignKey('User', models.DO_NOTHING)# Doprecyzowac czy to klucz obcy
-	note_title = models.ForeignKey('Note', models.DO_NOTHING)# Doprecyzowac: czy to klucz obcy
+   task_id = models.Integer(primary_key=True)
+   query = models.CharField(max_length=21840)
+   occurrence_num = models.Integer()
+   status = models.CharField(max_length=20)
+   start_time = models.DateTimeField(null=True)
+   end_time = models.DateTimeField(null=True)
+   user_id = models.ForeignKey('User', models.DO_NOTHING)# Doprecyzowac czy to klucz obcy
+   note_title = models.ForeignKey('Note', models.DO_NOTHING)# Doprecyzowac: czy to klucz obcy
 	
 class TaskHistory(models.Model):
-	class Meta:
-		managed = False
-		db_table = 'Task_hist'
+   class Meta:
+      managed = False
+      db_table = 'Task_hist'
 		
-	task_id = models.IntegerField()
-	query_time = models.TimeField()
-	json_result = models.CharField(max_length=655)# Doprecyzowac wielkosc
+   task_id = models.IntegerField()
+   query_time = models.TimeField()
+   json_result = models.CharField(max_length=655)# Doprecyzowac wielkosc
 	
 
 class AuthGroup(models.Model):
