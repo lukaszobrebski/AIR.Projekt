@@ -4,6 +4,7 @@ import CreateTask from './containers/CreateTask';
 import Login from './containers/Login';
 import Register from './containers/Register';
 import ViewTask from './containers/ViewTask';
+import './style/base.scss'
 
 export default class App extends Component {
   constructor(props){
