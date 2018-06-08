@@ -10,7 +10,11 @@ export default class SendFile extends Component {
   }
 
   componentDidMount() {
+    setInterval(() => this.checkStatus(), 1000);
+  }
 
+  checkStatus = () => {
+    console.log('check status');
   }
 
   getFile = event => {
