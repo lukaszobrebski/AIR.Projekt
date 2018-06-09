@@ -7,50 +7,86 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-class User(models.Model):
-   class Meta:
-      managed = False
-      db_table = 'USER'
-		
-   user_id = models.IntegerField(primary_key=True)
-   user_name = models.CharField(max_length=45)
-   user_password = models.CharField(max_length=15)
-	
-class Note(models.Model):
-   class Meta:
-      managed = False
-      db_table = 'NOTES'
-		
-   title = models.CharField(max_length=45, primary_key=True)
-   user_id = models.ForeignKey('User', models.DO_NOTHING) 
-   event_id = models.ForeignKey('Task', models.DO_NOTHING)# Doprecyzowac: Co to i czy to klucz obcy
-   cret_dt_tm = models.DateTimeField(null=True)
-   note_txt = models.CharField(max_length=999999999) # Doprecyzowac: max długosc
-   priority = models.IntegerField()
-	
+
+class Event(models.Model):
+    event_id = models.IntegerField(primary_key=True)
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    title = models.CharField(max_length=20)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    start_dt_tm = models.DateTimeField(blank=True, null=True)
+    end_dt_tm = models.DateTimeField(blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
+    is_done = models.IntegerField(blank=True, null=True)
+    priority = models.CharField(max_length=20, blank=True, null=True)
+    cyklicity = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'EVENT'
+
+
+class Notes(models.Model):
+    title = models.CharField(primary_key=True, max_length=45)
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    event = models.ForeignKey(Event, models.DO_NOTHING, blank=True, null=True)
+    cret_dt_tm = models.DateTimeField()
+    mod_dt_tm = models.DateTimeField(blank=True, null=True)
+    note_txt = models.TextField(blank=True, null=True)
+    priority = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'NOTES'
+        unique_together = (('title', 'user', 'cret_dt_tm'),)
+
+
+class Session(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING, primary_key=True)
+    login_dt_tm = models.DateTimeField()
+    logout_dt_tm = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'SESSION'
+        unique_together = (('user', 'login_dt_tm'),)
+
+
 class Task(models.Model):
-   class Meta:
-      managed = False
-      db_table = 'Task'
-	
-   task_id = models.Integer(primary_key=True)
-   query = models.CharField(max_length=21840)
-   occurrence_num = models.Integer()
-   status = models.CharField(max_length=20)
-   start_time = models.DateTimeField(null=True)
-   end_time = models.DateTimeField(null=True)
-   user_id = models.ForeignKey('User', models.DO_NOTHING)# Doprecyzowac czy to klucz obcy
-   note_title = models.ForeignKey('Note', models.DO_NOTHING)# Doprecyzowac: czy to klucz obcy
-	
-class TaskHistory(models.Model):
-   class Meta:
-      managed = False
-      db_table = 'Task_hist'
-		
-   task_id = models.IntegerField()
-   query_time = models.TimeField()
-   json_result = models.CharField(max_length=655)# Doprecyzowac wielkosc
-	
+    task_id = models.IntegerField(primary_key=True)
+    query = models.CharField(max_length=21840, blank=True, null=True)
+    occurrence_num = models.IntegerField(blank=True, null=True)
+    status = models.CharField(max_length=20, blank=True, null=True)
+    start_time = models.DateTimeField(blank=True, null=True)
+    end_time = models.DateTimeField(blank=True, null=True)
+    user_id = models.IntegerField(blank=True, null=True)
+    note_title = models.ForeignKey(Notes, models.DO_NOTHING, db_column='note_title', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'Task'
+
+
+class TaskHist(models.Model):
+    task = models.ForeignKey(Task, models.DO_NOTHING, primary_key=True)
+    query_time = models.TimeField(blank=True, null=True)
+    json_result = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'Task_hist'
+
+
+class User(models.Model):
+    user_id = models.IntegerField(primary_key=True)
+    email = models.CharField(max_length=45, blank=True, null=True)
+    user_name = models.CharField(max_length=45)
+    pass_field = models.CharField(db_column='pass', max_length=20, blank=True, null=True)  # Field renamed because it was a Python reserved word.
+    reg_dt = models.DateField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'USER'
+
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=80)
@@ -160,3 +196,13 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+
+class Dupa(models.Model):
+    id_dupa = models.AutoField(primary_key=True)
+    login = models.CharField(max_length=45)
+    password = models.CharField(max_length=45)
+
+    class Meta:
+        managed = False
+        db_table = 'dupa'
