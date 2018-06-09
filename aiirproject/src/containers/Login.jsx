@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link, Route, Redirect } from 'react-router-dom';
-import SendFile from '../components/SendFile';
 import '../style/base.scss';
 
 export default class Login extends Component {
@@ -22,7 +21,6 @@ export default class Login extends Component {
   render() {
     return(
       <div className='container'>
-        <SendFile />
         <div className='container container__login'>
         <h1>Login</h1>
           <form className='container container__login--form'>

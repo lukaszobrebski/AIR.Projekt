@@ -6,6 +6,9 @@ export default class SendFile extends Component {
     this.state = { 
       file: null,
       isUploaded: false,
+      userID:'',
+      keyword:'',
+      taskname:''
     };
   }
 
