@@ -14,38 +14,51 @@ Person responsible: Łukasz Obrębski
 import os
 from abc import ABC, abstractmethod
 from google.cloud import dataproc_v1
-
+from google.oauth2 import service_account
 
 #Google Dataproc settings
 
-# Don't change until you know what you're doing
-SERVICE_ACCOUNT_KEY_DIR_PATH =     dir_path = os.path.dirname(os.path.realpath(__file__))
-SERVICE_ACCOUNT_KEY_NAME =         "service_account_key.json"
+#-Don't change until you know what you're doing
 
-REGION =       "europe-west3"
-ZONE =         REGION + "-b"
-SUB_NETWORK =  "default"
+SERVICE_ACCOUNT_KEY =              os.path.dirname(os.path.realpath(__file__)) + '/service_account_key.json'
+REGION =                           "europe-west3"
+ZONE =                             REGION + "-b"
+SUB_NETWORK =                      "default"
+PROJECT_ID =                       "clean-emblem-202911"
 
-# Don't change at all
-SERVICE_ACCOUNT_KEY_FULLPATH = SERVICE_ACCOUNT_KEY_DIR_PATH + '/' + SERVICE_ACCOUNT_KEY_NAME
-PROJECT_ID = "clean-emblem-202911"
+#temporary
+workersCount = 4
+#----------------------------------------------
+
+
+print(SERVICE_ACCOUNT_KEY)
+
+credentials   = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_KEY)
+clusterClient = dataproc_v1.ClusterControllerClient(credentials = credentials)
+jobClient     = dataproc_v1.JobControllerClient(credentials=credentials)
 
 cluster_config = dataproc_v1.types.ClusterConfig()
-cluster_config_gce = dataproc_v1.types.GceClusterConfig()
-cluster_config.gce_cluster_config = cluster_config_gce
-#cluster_config.gce_cluster_config = {'subnetworkUri': 'default'}
-                                     #'zoneUri' : 'europe-west3-b'}
-                                     
+
+cluster_config.master_config.num_instances = 1
+cluster_config.master_config.machine_type_uri = 'n1-standard-1'
+cluster_config.master_config.disk_config.boot_disk_size_gb = 32
+                               
+cluster_config.worker_config.num_instances = workersCount
+cluster_config.worker_config.machine_type_uri = 'n1-standard-1'
+cluster_config.worker_config.disk_config.boot_disk_size_gb = 32
+
+cluster_config.gce_cluster_config.zone_uri = ZONE
+
+
 cluster = {'project_id' : PROJECT_ID,
-           'cluster_name' : 'aiir-spark',
+           'cluster_name' : 'aiir-1',
            'config' : cluster_config}
+           
+#Do not run! It will break the project file structure         
+#response = clusterClient.create_cluster(PROJECT_ID, 'global', cluster)
 
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_KEY_FULLPATH
-_clusterClient = dataproc_v1.ClusterControllerClient()
-_jobClient = dataproc_v1.JobControllerClient()
 
-response = _clusterClient.create_cluster(PROJECT_ID, REGION, cluster)
 '''
 # Iterate over all results
 for element in client.list_clusters(project_id, region):
@@ -59,9 +72,6 @@ for page in client.list_clusters(project_id, region, options=CallOptions(page_to
         pass
         
 '''
-
-
-
 class DataProcServiceHandler():
     def __init__(self):
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_KEY_FULLPATH
