@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import '../style/base.scss';
 
 export default class ViewTask extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Tasks:[]
+      Tasks:[{
+        taskID:'1',
+        query:'dupa',
+        status:'Pending',
+        start_time:'09.06.18',
+        user_id:'ThomasP'
+      },
+      {
+        taskID:'1',
+        query:'dupa',
+        status:'Pending',
+        start_time:'09.06.18',
+        user_id:'ThomasP'
+      }]
      }
   }
 
@@ -21,7 +35,7 @@ export default class ViewTask extends Component {
           <tbody>{this.state.Tasks.map((item, key) => {
               return(
                 <tr key= {key}>
-                  <td>{item.taskID}</td>
+                  <td>{item.taskID }</td>
                   <td>{item.query}</td>
                   <td>{item.status}</td>
                   <td>{item.user_id}</td>

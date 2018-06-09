@@ -6,7 +6,11 @@ import '../style/base.scss';
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
+      credentials:{
+        userName:'',
+        password:''
+      }, 
       isLogged: false
     }
   }

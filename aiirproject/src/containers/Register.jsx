@@ -5,7 +5,12 @@ import '../style/base.scss';
 export default class Register extends Component {
   constructor(props) {
     super(props);
-    this.state = { }
+    this.state = {
+      credentials:{
+        userName:'',
+        password:''
+      }
+     }
   }
 
   componentDidMount() {
