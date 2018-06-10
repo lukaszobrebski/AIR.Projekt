@@ -9,12 +9,13 @@ class ApiClient {
   }
 
   register = user => {
-    return this.api.post('/register', user)
+    /*return this.api.post('/register', user)
     .then(response => {
       const { code } = response.data;
       return code;
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(error));*/
+    return Promise.resolve(true);
   };
 
   login = credentials => {
@@ -45,6 +46,23 @@ class ApiClient {
     .catch(error => console.log(error))*/
     return Promise.resolve(true);
   }
+
+  getTasks = username => {
+    return this.api.get('/getFiles', username)
+    .then(response => {return response})
+    .catch(error => console.log(error))
+  }
+
+  getTaskresult = payload => { 
+    return this.api.get('/getResult', {
+      params:{
+        taskname:payload.taskname, 
+        username: payload.username}
+      })
+    .then( response => {return response})
+    .catch(error => console.log(error))
+  }
+
 }
 
 export default new ApiClient();

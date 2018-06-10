@@ -49,11 +49,7 @@ export default class ViewTask extends Component {
                 </tr>
               )
           })}</tbody>
-        
-        
         </table>
-
-
           <Link to='/register'>Register</Link>
           <Link to='/create'>Create</Link>
           <Link to='/'>Logout</Link>
