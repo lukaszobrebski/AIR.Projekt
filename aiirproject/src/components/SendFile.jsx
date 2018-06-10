@@ -32,9 +32,9 @@ export default class SendFile extends Component {
   }
 
   prepareSend = file => ({
-    userId: null,
-    keyword: null,
-    taskName: null,
+    userId: this.state.userID,
+    keyword: this.state.keyword,
+    taskName: this.state.tasknames,
     file
   })
 

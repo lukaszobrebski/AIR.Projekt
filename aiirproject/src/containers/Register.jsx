@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import '../style/base.scss';
+import apiClient from '../api/apiClient';
 
 export default class Register extends Component {
   constructor(props) {
@@ -8,13 +9,21 @@ export default class Register extends Component {
     this.state = {
       credentials:{
         userName:'',
-        password:''
       }
      }
+     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
 
+  }
+
+  handleSubmit(event){
+    event.preventDefault();
+    const data = new FormData(event.target);
+    apiClient.login(data)
+    .then(response => response === true ? this.setState({isLogged: true}) : null)
+    .catch(error => {})
   }
 
   render() {

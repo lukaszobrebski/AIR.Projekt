@@ -23,6 +23,9 @@ export default class CreateTask extends Component {
     alert('Submitted Values:' + this.state.taskName + ' ' + this.state.query);
     event.preventDefault();
   }
+  refreshPage(){
+    window.location.reload();
+  }
 
   render() {
     return(
@@ -38,7 +41,8 @@ export default class CreateTask extends Component {
               {/*<button className='btn btn-primary' type='submit'>Submit</button>*/}
               <SendFile userID={this.state.userID} keyword={this.state.query} taskname={this.state.taskName}/>
             </form>
-            <Link to='/register'>Register</Link>
+          <button type="button" onClick={this.refreshPage}>Create another task</button>
+          <Link to='/register'>Register</Link>
           <Link to='/'>Login</Link>
           <Link to='/view'>View</Link>
         </div>

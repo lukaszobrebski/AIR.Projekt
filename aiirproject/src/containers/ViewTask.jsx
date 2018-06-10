@@ -16,9 +16,11 @@ export default class ViewTask extends Component {
       {
         taskID:'1',
         query:'dupa',
-        status:'Pending',
-        start_time:'09.06.18',
-        user_id:'ThomasP'
+        status:'Finished',
+        start_time:'09.06.18 10:45',
+        end_time:'10.06.18 11:00',
+        user_id:'ThomasP',
+        occurence_num:'102'
       }]
      }
   }
@@ -41,9 +43,9 @@ export default class ViewTask extends Component {
                   <td>{item.user_id}</td>
                   <td>{item.start_time}</td>
                   {item.status === "Finished" ?
-                  (<td>{item.end_time}</td>) : null}
+                  (<td>{item.end_time}</td>) : " N/A "}
                   {item.status === "Finished" ?
-                  (<td>{item.occurence_num}</td>) : null}
+                  (<td>{item.occurence_num}</td>) : " N/A "}
                 </tr>
               )
           })}</tbody>

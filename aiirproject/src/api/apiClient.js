@@ -18,12 +18,17 @@ class ApiClient {
   };
 
   login = credentials => {
-    return this.api.post('/login', credentials)
+    /*return this.api.post('/login', credentials)
     .then(response => {
-      const { code } = response.data;
-      return code;
+      if(response.data.code === 200){
+        return true;
+      }
+      else {
+        return false;
+      }
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(error))*/
+    return Promise.resolve(true);
   }
 
   sendFile = data => {
