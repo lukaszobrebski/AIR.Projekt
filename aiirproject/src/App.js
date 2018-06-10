@@ -10,18 +10,26 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      username:''
+      testVar:'dupa'
     }
+
+    this.handler = this.handler.bind(this)
+  }
+
+  handler(user){
+    this.setState(
+      {testVar: user}
+    )
   }
 
   render() {
     return (
       <Router>
         <div className='base'>
-          <Route exact path="/" component={Login}/>
+          <Route exact path='/' render={props => <Login testVar={this.state.testVar} handler={this.handler} />}/>
           <Route path="/register" component={Register}/>
           <Route path="/create" component={CreateTask}/>
-          <Route path="/view" component={ViewTask}/>
+          <Route path="/view" render={props => <ViewTask testVar={this.state.testVar}/>}/>
         </div>
       </Router>
     );

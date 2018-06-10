@@ -8,20 +8,24 @@ export default class Login extends Component {
     super(props);
     this.state = {
       credentials:{
-        userName:''
+        userName:'',  
       }, 
-      isLogged: false
+      isLogged: false,
+      testVar:'',
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-
+    const props = this.props;
+    this.setState({testVar: props.testVar});
   }
 
   handleSubmit(event){
     event.preventDefault();
     const data = new FormData(event.target);
+    const username = data.get('user')
+    this.props.handler(username)
     apiClient.login(data)
     .then(response => response === true ? this.setState({isLogged: true}) : null)
     .catch(error => {})
@@ -31,12 +35,12 @@ export default class Login extends Component {
     return(
       <div className='container'>
         <div className='container container__login'>
-        <h1>Login</h1>
+        <h1>{this.state.testVar}</h1>
           <form className='container container__login--form' onSubmit={this.handleSubmit}>
             <label for='user'>Username</label>
-            <input type='text' id='user'/>
+            <input type='text' id='user' name='user'/>
             <label for='pass'>Password</label>
-            <input type='password' id='pass'/>
+            <input type='password' id='pass' name='password'/>
             <button className='btn btn-primary' type='submit'>Submit</button>
           </form>
           {this.state.isLogged ? <Redirect to='/view'/> : null}

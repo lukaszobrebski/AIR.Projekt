@@ -21,18 +21,20 @@ export default class ViewTask extends Component {
         end_time:'10.06.18 11:00',
         user_id:'ThomasP',
         occurence_num:'102'
-      }]
+      }],
+      testVar:''
      }
   }
 
   componentDidMount() {
-
+    const props = this.props;
+    this.setState({testVar: props.testVar});
   }
 
   render() {
     return(
       <div className='container'>
-        <h1>ViewTask</h1>
+        <h1>{this.state.testVar} </h1>
         <table>
           <tbody>{this.state.Tasks.map((item, key) => {
               return(
