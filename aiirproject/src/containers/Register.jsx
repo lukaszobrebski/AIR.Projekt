@@ -8,7 +8,7 @@ export default class Register extends Component {
     super(props);
     this.state = {
       credentials:{
-        userName:'',
+        userName:''
       }
      }
      this.handleSubmit = this.handleSubmit.bind(this);
