@@ -1,35 +1,38 @@
 import React, { Component } from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import './App.css';
-import LoginScreen from './Loginscreen';
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import CreateTask from './containers/CreateTask';
+import Login from './containers/Login';
+import Register from './containers/Register';
+import ViewTask from './containers/ViewTask';
+import './style/base.scss'
 
-
-class App extends Component {
+export default class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      loginPage:[],
-      uploadScreen:[]
+      testVar:'dupa'
     }
+
+    this.handler = this.handler.bind(this)
   }
-  componentWillMount(){
-    var loginPage =[];
-    loginPage.push(<LoginScreen appContext={this}/>);
-    this.setState({
-                  loginPage:loginPage
-                    })
+
+  handler(user){
+    this.setState(
+      {testVar: user}
+    )
   }
+
   render() {
     return (
-      <div className="App">
-        {this.state.loginPage}
-        {this.state.uploadScreen}
-      </div>
+      <Router>
+        <div className='base'>
+          <Route exact path='/' render={props => <Login testVar={this.state.testVar} handler={this.handler} />}/>
+          <Route path="/register" component={Register}/>
+          <Route path="/create" component={CreateTask}/>
+          <Route path="/view" render={props => <ViewTask testVar={this.state.testVar}/>}/>
+        </div>
+      </Router>
     );
   }
 }
 
-export default App;
