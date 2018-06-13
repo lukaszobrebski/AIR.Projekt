@@ -1,0 +1,11 @@
+.Row {
+  display: grid;
+  grid-template-columns: 32px 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.Row:hover {
+  background: #efefef;
+}
+.Col {
+  border-top: 1px solid #bbb;
+  padding: 10px 0;
+}
