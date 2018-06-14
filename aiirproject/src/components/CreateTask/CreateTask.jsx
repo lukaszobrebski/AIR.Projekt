@@ -24,9 +24,9 @@ const CreateTask = props => {
         </div>
         <div className='CreateTask__Main'>
         <form className='CreateTask__Form' onSubmit={props.onSubmit}>
-          <label for='taskName'>Task Name</label>
+          <label htmlFor='taskName'>Task Name</label>
           <input type='text' name='taskName' onChange={props.onChangeTaskName} value={props.taskName} />
-          <label for='query'>Query</label>
+          <label htmlFor='query'>Query</label>
           <input type='text' name='query' onChange={props.onChangeQuery} value={props.query} />
           <SendFile/>
           <input type="submit" value="Submit"/>

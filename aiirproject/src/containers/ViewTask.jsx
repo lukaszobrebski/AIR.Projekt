@@ -10,6 +10,7 @@ export default class ViewTask extends Component {
     super(props);
     this.state = {
       create: false,
+      taskName: '',
       tasks:[{
         taskId:'1',
         query:'dupa',
@@ -33,6 +34,10 @@ export default class ViewTask extends Component {
     console.log(this.state)
   }
 
+  hendleTaskName = event => {
+    this.setState({ taskName: event.target.value });
+  }
+
   display = popup => {
     switch (popup) {
       case 'create': {
@@ -52,7 +57,15 @@ export default class ViewTask extends Component {
     const { create } = this.state;
     return(
       <div className='container'>
-        { create ? <CreateTask close={() => this.setState({ create: false })}/> : null}
+        { 
+          create 
+          ? <CreateTask 
+              close={() => this.setState({ create: false })}
+              onChangeTaskName={(event) => this.hendleTaskName(event)}
+              taskName={this.state.taskName}
+            /> 
+          : null
+        }
         <Menu display={popup => this.display(popup)}/>
         <BaseTable tasks={this.state.tasks}/>
       </div>
