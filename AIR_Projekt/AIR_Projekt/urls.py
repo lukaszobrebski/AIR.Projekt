@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 urlpatterns = [
-    re_path(r'^api/$', include('polls.urls')),
+    re_path(r'^api/', include('polls.urls')),
     url(r'^admin/', admin.site.urls)
 ]
 
