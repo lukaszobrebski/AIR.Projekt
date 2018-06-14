@@ -1,9 +1,12 @@
-import generics
+
 from django.core.serializers import serialize
 from django.db.models import Model
 from django.http import HttpResponse
 from django.db import connection
 from django.shortcuts import render
+#from django.views.generics import *
+from rest_framework import generics
+from rest_framework.views import APIView
 
 from AIR_Projekt.workflow import generatRDDs
 from polls.helpers import LazyEncoder
@@ -38,10 +41,10 @@ class TasksAPI(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
     
 class HistoryAPI(APIView):
-    queryset = TaskHistory.objects.all()
+    queryset = TaskHist.objects.all()
     serializer_class = TaskHistorySerializer
     
 class NotesAPI(APIView):
-    queryset = Note.objects.all()
+    queryset = Notes.objects.all()
     serializer_class = NoteSerializer
     

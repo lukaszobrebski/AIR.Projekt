@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
     	
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Note
+        model = Notes
         fields = '__all__'		
 		
 class TaskSerializer(serializers.ModelSerializer):
@@ -29,7 +29,7 @@ class TaskSerializer(serializers.ModelSerializer):
 			
 class TaskHistorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = TaskHistory
+        model = TaskHist
         fields = '__all__'
 	
  
