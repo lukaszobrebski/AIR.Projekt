@@ -1,60 +1,73 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import Menu from '../components/Menu';
+import BaseTable from '../components/BaseTable';
+import CreateTask from '../components/CreateTask';
 import '../style/base.scss';
+
 
 export default class ViewTask extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Tasks:[{
-        taskID:'1',
+      create: false,
+      taskName: '',
+      tasks:[{
+        taskId:'1',
         query:'dupa',
         status:'Pending',
-        start_time:'09.06.18',
-        user_id:'ThomasP'
+        startTime:'09.06.18',
+        userId:'ThomasP'
       },
       {
-        taskID:'1',
+        taskId:'1',
         query:'dupa',
         status:'Finished',
-        start_time:'09.06.18 10:45',
-        end_time:'10.06.18 11:00',
-        user_id:'ThomasP',
-        occurence_num:'102'
+        startTime:'09.06.18 10:45',
+        endTime:'10.06.18 11:00',
+        userId:'ThomasP',
+        occurance:'102'
       }],
-      testVar:''
      }
   }
+  
+  componentDidUpdate(prev) {
+    console.log(this.state)
+  }
 
-  componentDidMount() {
-    const props = this.props;
-    this.setState({testVar: props.testVar});
+  hendleTaskName = event => {
+    this.setState({ taskName: event.target.value });
+  }
+
+  display = popup => {
+    switch (popup) {
+      case 'create': {
+        const { create } = this.state;
+        return this.setState({ create: !create })
+      }
+      case 'register': {
+        const { register } = this.state;
+        return this.setState({ register: !register })
+      }
+      default:
+        break;
+    }
   }
 
   render() {
+    const { create } = this.state;
     return(
       <div className='container'>
-        <h1>{this.state.testVar} </h1>
-        <table>
-          <tbody>{this.state.Tasks.map((item, key) => {
-              return(
-                <tr key= {key}>
-                  <td>{item.taskID }</td>
-                  <td>{item.query}</td>
-                  <td>{item.status}</td>
-                  <td>{item.user_id}</td>
-                  <td>{item.start_time}</td>
-                  {item.status === "Finished" ?
-                  (<td>{item.end_time}</td>) : " N/A "}
-                  {item.status === "Finished" ?
-                  (<td>{item.occurence_num}</td>) : " N/A "}
-                </tr>
-              )
-          })}</tbody>
-        </table>
-          <Link to='/register'>Register</Link>
-          <Link to='/create'>Create</Link>
-          <Link to='/'>Logout</Link>
+        { 
+          create 
+          ? <CreateTask 
+              close={() => this.setState({ create: false })}
+              onChangeTaskName={(event) => this.hendleTaskName(event)}
+              taskName={this.state.taskName}
+            /> 
+          : null
+        }
+        <Menu display={popup => this.display(popup)}/>
+        <BaseTable tasks={this.state.tasks}/>
       </div>
     )
   }

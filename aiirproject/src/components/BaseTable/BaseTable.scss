@@ -1,0 +1,8 @@
+.Table {
+  margin: 64px 10px 20px 10px;
+}
+
+.Table__Labels {
+  display: grid;
+  grid-template-columns: 32px 1fr 1fr 1fr 1fr 1fr 1fr;
+}

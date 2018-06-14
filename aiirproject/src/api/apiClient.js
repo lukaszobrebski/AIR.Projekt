@@ -33,7 +33,7 @@ class ApiClient {
   }
 
   sendFile = data => {
-    //console.log(data)
+    console.log("InApi!")
     /*return this.api.post('/sendFile', data)
     .then(response => {
       if(response.data.code === 200) {
