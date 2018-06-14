@@ -1,5 +1,7 @@
 import React from 'react'
 import './CreateTask.scss';
+import SendFile from '../SendFile';
+
 const CreateTask = props => {
 
   const closeContainer = (event) => {
@@ -7,6 +9,12 @@ const CreateTask = props => {
     return props.close();
   }
 
+  const state = {
+    userID:'',
+    taskName:'',
+    query:''
+  }
+  
   return (
     <div className='overlay'>
       <div className='CreateTask'>
@@ -18,8 +26,9 @@ const CreateTask = props => {
         <form className='CreateTask__Form' onSubmit={props.onSubmit}>
           <label for='taskName'>Task Name</label>
           <input type='text' name='taskName' onChange={props.onChangeTaskName} value={props.taskName} />
-          <label for='taskName'>Query</label>
+          <label for='query'>Query</label>
           <input type='text' name='query' onChange={props.onChangeQuery} value={props.query} />
+          <SendFile/>
           <input type="submit" value="Submit"/>
         </form>
         </div>

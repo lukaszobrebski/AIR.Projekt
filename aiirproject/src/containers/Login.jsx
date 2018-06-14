@@ -18,7 +18,7 @@ export default class Login extends Component {
 
   componentDidMount() {
     const props = this.props;
-    this.setState({testVar: props.testVar});
+    this.setState({testVar: props.testVar, isLogged: props.isLogged});
   }
 
   handleSubmit(event){
@@ -30,10 +30,11 @@ export default class Login extends Component {
     .then(response => response === true ? this.setState({isLogged: true}) : null)
     .catch(error => {})
   }
+        
 
   render() {
     return(
-      <div className='container'>
+        <div className='container'>
         <div className='container container__login'>
         <h1>{this.state.testVar}</h1>
           <form className='container container__login--form' onSubmit={this.handleSubmit}>
@@ -46,10 +47,10 @@ export default class Login extends Component {
           {this.state.isLogged ? <Redirect to='/view'/> : null}
           <Link to='/register'>Register</Link>
           <Link to='/create'>Create</Link>
-          <Link to='/view'>View</Link>
-          
+          <Link to='/view'>View</Link>        
         </div>
       </div>
+      
     )
   }
 }

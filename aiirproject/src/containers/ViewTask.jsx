@@ -10,7 +10,6 @@ export default class ViewTask extends Component {
     super(props);
     this.state = {
       create: false,
-      register: false,
       tasks:[{
         taskId:'1',
         query:'dupa',
@@ -50,7 +49,7 @@ export default class ViewTask extends Component {
   }
 
   render() {
-    const { create, register } = this.state;
+    const { create } = this.state;
     return(
       <div className='container'>
         { create ? <CreateTask close={() => this.setState({ create: false })}/> : null}

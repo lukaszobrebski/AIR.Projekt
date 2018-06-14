@@ -1,0 +1,47 @@
+.overlay {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0, .5);
+  display: flex;
+}
+.Register {
+  width: 300px;
+  height: 300px;
+  padding: 25px;
+  background: #fff;
+  margin: auto auto;
+  border-radius: 5px;
+
+}
+
+.Register__Header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 0 20px 0;
+  h1 {
+    margin: 0 50px 0 0;
+  }
+  button {
+    width: 64px;
+    height: 32px;
+    margin: auto 0;
+    background: none;
+    border-radius: 10%;
+    border: 1px solid #bbb;
+    cursor: pointer;
+  }
+}
+
+.Register__Form{
+  display: flex;
+  flex-direction: column;
+  button{
+    margin: 20px 0 0 0;
+  }
+  input {
+    margin: 10px 0;
+  }
+}

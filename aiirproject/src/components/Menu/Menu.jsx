@@ -6,16 +6,13 @@ const Menu = props => {
   const handleClick = action => {
     return props.display(action)
   }
-
-  return (
+  if(true){
+    return (
     <div className='Menu'>
-      <Link className='Menu__Link' to='/register'>Register</Link>
-      <Link className='Menu__Link' to='/create'>Create</Link>
       <span className='Menu__Link' onClick={() => handleClick('create')}>Test_Create</span>
-      <span className='Menu__Link' onClick={() => handleClick('register')}>Test_Register</span>
       <Link className='Menu__Link Menu__Link--logout' to='/'>Logout</Link>
-    </div>
-  )
+    </div>)
+  }
 }
 
 export default Menu;
