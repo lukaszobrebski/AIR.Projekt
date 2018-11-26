@@ -5,7 +5,7 @@ from polls.models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('user_name', 'user_password') #Excluded: user_id
+        fields = ('user_name', 'pass_field') #Excluded: user_id
     	       
     def create(self, validated_data):
         return User.objects.create(**validated_data)
@@ -25,7 +25,13 @@ class NoteSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ('query',
+		'occurrence_num',
+		'status',
+		'start_time',
+		'end_time',
+    		'user_id', 
+    		'note_title')
 			
 class TaskHistorySerializer(serializers.ModelSerializer):
     class Meta:

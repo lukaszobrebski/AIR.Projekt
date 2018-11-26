@@ -7,6 +7,7 @@ from django.shortcuts import render
 #from django.views.generics import *
 from rest_framework import generics
 from rest_framework.views import APIView
+from django.http import *
 
 from AIR_Projekt.workflow import generatRDDs
 from polls.helpers import LazyEncoder
@@ -24,12 +25,12 @@ path('notes', views.NotesAPI.as_view())
 class LoginUserAPI(APIView):
     def post(self, request): 	
         userNameRequest = request.POST.get('user_name')
-        userPasswordRequest = request.POST.get('user_password')
+        userPasswordRequest = request.POST.get('pass_field')
     	   
-        if User.objects.filter(user_name = userNameRequest, user_password = userPasswordRequest).exists():
+        if User.objects.filter(user_name = userNameRequest, pass_field = userPasswordRequest).exists():
             return HttpResponse(status=200)
         else:
-            return HttpResponseNotFound     
+            return HttpResponse(status=404)#HttpResponseNotFound     
     	
       	
 class RegisterUserAPI(generics.CreateAPIView):
